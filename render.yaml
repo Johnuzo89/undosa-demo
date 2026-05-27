@@ -1,0 +1,12 @@
+services:
+  - type: docker-compose
+    name: undosatech-demo
+    repo: https://github.com/johnuzo89/undosa-demo.git
+    branch: main
+    dockerComposeFile: docker-compose.yml
+    env:
+      - key: NODE_ID
+        value: A
+      - key: NODE_ID
+        value: B
+    healthCheckPath: /healthz
