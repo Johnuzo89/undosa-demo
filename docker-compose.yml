@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  node-a:
+    build: ./nodes
+    environment:
+      - NODE_ID=A
+    volumes:
+      - ./data:/app/data
+    networks:
+      - undosa-net
+
+  node-b:
+    build: ./nodes
+    environment:
+      - NODE_ID=B
+    volumes:
+      - ./data:/app/data
+    networks:
+      - undosa-net
+
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "8080:8080"
+    networks:
+      - undosa-net
+
+  streamlit:
+    build: ./streamlit
+    ports:
+      - "8501:8501"
+    networks:
+      - undosa-net
+    depends_on:
+      - orchestrator
+
+networks:
+  undosa-net:
+    driver: bridge
